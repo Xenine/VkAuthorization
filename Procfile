@@ -1,0 +1,1 @@
+web: gunicorn VKauth.wsgi --log-file -

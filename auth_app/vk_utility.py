@@ -10,7 +10,7 @@ def auth(code):
     Далее при помощи API ВКонтакте получает имя авторизованного пользователя и список из 5 его друзей,
     выбранных в произвольном порядке. Функция возвращает сообщение с именем авторизованного
     пользователя и списком из 5 его друзей"""
-    request_link = 'https://oauth.vk.com/access_token?client_id=7374940&client_secret=l6n54t5ztiKcZcVDI6xF&redirect_uri=http://vk.com&code={0}'
+    request_link = 'https://oauth.vk.com/access_token?client_id=7374940&client_secret=l6n54t5ztiKcZcVDI6xF&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&code={0}'
     request_link = request_link.format(code)
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()

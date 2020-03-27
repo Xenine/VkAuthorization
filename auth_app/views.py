@@ -7,7 +7,7 @@ def index(request):
     if 'testcookie' not in request.COOKIES: # проверяем браузер пользователя на наличие куки от нашего приложения
         return render(request, 'auth_app/homePage2.html', ) # если куки не обнаружено значит пользователь зашел к нам в первый раз и направляем его на кнопку авторизации
     else:
-        return redirect("/friends/") # если куки обнаружено - сразу перенаправляем пользователя на приложение авторизации
+        return redirect("auth_app/friends/") # если куки обнаружено - сразу перенаправляем пользователя на приложение авторизации
      
 def friends(request):
     request_link = "https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code"

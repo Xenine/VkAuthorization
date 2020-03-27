@@ -30,15 +30,15 @@ def auth(code):
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()
     array_of_friends_ID = data['response']['items'] # получаем массив словарей имен, фамилий и id друзей 
-    
-    greeting_string += '5 друзей из вашего контакт листа, выбранных в случайном порядке: <br>'
-    for i in range(5): # создаем список друзей
+    greeting_string += '<p style="font-size:20px;  text-decoration: none; color:#0a0a0a;">5 друзей из вашего контакт листа, выбранных в случайном порядке:</p><br>'
+    for i in range(5): 
         temp_first_name = array_of_friends_ID[i]['first_name']
         temp_last_name = array_of_friends_ID[i]['last_name']
+        temp_id = array_of_friends_ID[i]['id']
         temp_new_string = '{0} {1} \n'
         temp_new_string = temp_new_string.format(temp_first_name, temp_last_name)
-        new_string = '<a href="https://vk.com/id{0}">{1}</a><br> '
-        new_string = new_string.format(user_id, temp_new_string)
+        new_string = '<a href="https://vk.com/id{0}" style="font-size:20px;  text-decoration: none; color:#0a0a0a;">{1}</a><br>'
+        new_string = new_string.format(temp_id, temp_new_string)
         greeting_string += new_string
 
     return greeting_string

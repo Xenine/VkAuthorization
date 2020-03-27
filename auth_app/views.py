@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 import requests
-from . import vk_utility
+from . import func
 
 def index(request):
     if 'testcookie' not in request.COOKIES: # проверяем браузер пользователя на наличие куки от нашего приложения

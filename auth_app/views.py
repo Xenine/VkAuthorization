@@ -17,7 +17,7 @@ def friends(request):
                                         # и возвращает список из 5 друзей пользователя
         if 'testcookie' not in request.COOKIES: # проверяем бразуер пользователя на наличие куки из данного приложения
             response = HttpResponse(report)
-            response.set_cookie('testcookie', 'VK_auth', max_age=60*60*24) # если кнопкуи не обнаружено - записываем куки в браузер
+            response.set_cookie('testcookie', 'VK_auth', max_age=60) # если кнопкуи не обнаружено - записываем куки в браузер
         else:
             response = HttpResponse(report)
         return response

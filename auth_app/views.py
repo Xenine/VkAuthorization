@@ -18,7 +18,7 @@ def login(request):
 def friends(request):
     #return render(request, 'auth_app/homePage2.html', )
     current_url = request.build_absolute_uri() # записываем в переменную текущую ссылку
-    code = current_url[45:] # получаем код из ссылки
+    code = current_url[-18:] # получаем код из ссылки
     report = vk_utility.auth(code)  # функция vk_utility.auth на входе получает код. при помощи кода получает доступ к списку друзей пользователя
                                     # и возвращает список из 5 друзей пользователя
     if 'testcookie' not in request.COOKIES: # проверяем бразуер пользователя на наличие куки из данного приложения

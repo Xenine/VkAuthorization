@@ -1,23 +1,24 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse
 import requests
 from . import func
 
 def index(request):
     if 'testcookie' not in request.COOKIES: # проверяем браузер пользователя на наличие куки от нашего приложения
-        return render(request, 'auth_app/homePage2.html', ) # если куки не обнаружено значит пользователь зашел к нам в первый раз и направляем его на кнопку авторизации
+        # если куки не обнаружено, значит пользователь зашел к нам в первый раз. Выводим кнопку авторизации
+        return render(request, 'auth_app/homePage.html')
     else:
-        return redirect("https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code") # если куки обнаружено - сразу перенаправляем пользователя на приложение авторизации
+        # если куки обнаружено - перенаправляем пользователя на страницу с выведенными друзьями
+        return redirect("https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code")
      
 def friends(request):
     try:
         current_url = request.build_absolute_uri() # записываем в переменную текущую ссылку
-        code = current_url[-18:] # получаем код из ссылки
-        report = func.auth(code)  # функция vk_utility.auth на входе получает код. при помощи кода получает доступ к списку друзей пользователя
-                                        # и возвращает список из 5 друзей пользователя
-        if 'testcookie' not in request.COOKIES: # проверяем бразуер пользователя на наличие куки из данного приложения
+        code = current_url[-18:] # срезаем код
+        report = func.auth(code)  # функция func.auth на входе получает код. Получает доступ к списку друзей пользователя и возвращает список из 5 случайных друзей пользователя
+        if 'testcookie' not in request.COOKIES: # проверяем браузер пользователя на наличие куки от нашего приложения
             response = HttpResponse(report)
-            response.set_cookie('testcookie', 'VK_auth', max_age=60) # если кнопкуи не обнаружено - записываем куки в браузер
+            response.set_cookie('testcookie', 'test', max_age=60*60*24*30) # если куки не обнаружены - записываем их в браузер на месяц
         else:
             response = HttpResponse(report)
         return response

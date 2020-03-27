@@ -2,11 +2,10 @@ import json
 import requests
 
 def auth(code):
-    """Функция получает значения code для получения ключа доступа. Затем при помощи
-    значения code сервер приложения получает ключ доступа access_token для доступа к API ВКонтакте.
-    Далее при помощи API ВКонтакте получает имя авторизованного пользователя и список из 5 его друзей,
-    выбранных в произвольном порядке. Функция возвращает сообщение с именем авторизованного
-    пользователя и списком из 5 его друзей"""
+    """Функция получает значение code для получения ключа доступа. Затем сервер приложения получает ключ access_token 
+    для доступа к API ВКонтакте. Далее получаем имя авторизованного пользователя и список из его 5-и случайных друзей. 
+    Функция возвращает сообщение с именем авторизованного пользователя и списком из 5-и его друзей"""
+
     request_link = 'https://oauth.vk.com/access_token?client_id=7374940&client_secret=l6n54t5ztiKcZcVDI6xF&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&code={0}'
     request_link = request_link.format(code)
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
@@ -22,8 +21,8 @@ def auth(code):
     last_name = data['response'][0]['last_name'] # получаем фамилию авторизованного пользователя
     greeting_string = '<p style="font-size:28px;">Здравствуйте, {0} {1}, вы авторизованы.</p><br>'
     greeting_string = greeting_string.format(first_name, last_name)
-    request_link = "https://api.vk.com/method/friends.get?user_ids={0}&order=random&count=5&fields=domain&access_token={1}&v=5.103 "  # создаем запрос на 5 друзей, выбранных в случайном порядке
-    request_link = request_link.format(user_id, access_token)
+    request_link = "https://api.vk.com/method/friends.get?user_ids={0}&order=random&count=5&fields=domain&access_token={1}&v=5.103 "
+    request_link = request_link.format(user_id, access_token)  # запрашиваем 5 друзей, выбранных в случайном порядке
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()
     array_of_friends_ID = data['response']['items'] # получаем массив словарей имен, фамилий и id друзей 

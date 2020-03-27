@@ -1,8 +1,5 @@
 import json
-import urllib
-import urllib.request
 import requests
-import time
 
 def auth(code):
     """Функция получает значения code для получения ключа доступа. Затем при помощи
@@ -30,7 +27,7 @@ def auth(code):
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()
     array_of_friends_ID = data['response']['items'] # получаем массив словарей имен, фамилий и id друзей 
-    greeting_string += '<p style="font-size:28px;">5 друзей из вашего контакт листа, выбранных в случайном порядке:</p><br>'
+    greeting_string += '<p style="font-size:28px;">5 друзей из Вашего списка друзей, выбранных случайным образом:</p><br>'
     for i in range(5): 
         temp_first_name = array_of_friends_ID[i]['first_name']
         temp_last_name = array_of_friends_ID[i]['last_name']

@@ -17,7 +17,7 @@ def auth(code):
     print(data)
     access_token = data['access_token'] #  получаем access token
     user_id = data['user_id'] #  получаем ID авторизованного пользователя
-    request_link = "https://api.vk.com/method/users.get?user_ids={0}&fields=bdate&apiccess_token={1}&v=5.103"
+    request_link = "https://api.vk.com/method/users.get?user_ids={0}&fields=bdate&access_token={1}&v=5.103"
     request_link = request_link.format(user_id, access_token)
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()

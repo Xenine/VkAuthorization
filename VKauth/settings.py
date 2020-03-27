@@ -25,7 +25,7 @@ SECRET_KEY = '3^r8v_9lz6e+wg+350mkj)37b**bg*$cfse)su3#nvx6cv+n)p'
 VK_APP_ID = '7374940'
 VK_API_SECRET = 'l6n54t5ztiKcZcVDI6xF'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

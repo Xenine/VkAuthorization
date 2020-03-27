@@ -10,14 +10,16 @@ def index(request):
         return redirect("https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code") # если куки обнаружено - сразу перенаправляем пользователя на приложение авторизации
      
 def friends(request):
-    
-    current_url = request.build_absolute_uri() # записываем в переменную текущую ссылку
-    code = current_url[-18:] # получаем код из ссылки
-    report = vk_utility.auth(code)  # функция vk_utility.auth на входе получает код. при помощи кода получает доступ к списку друзей пользователя
-                                    # и возвращает список из 5 друзей пользователя
-    if 'testcookie' not in request.COOKIES: # проверяем бразуер пользователя на наличие куки из данного приложения
-        response = HttpResponse(report)
-        response.set_cookie('testcookie', 'VK_auth', max_age=60*60*24) # если кнопкуи не обнаружено - записываем куки в браузер
-    else:
-        response = HttpResponse(report)
-    return response
+    try:
+        current_url = request.build_absolute_uri() # записываем в переменную текущую ссылку
+        code = current_url[-18:] # получаем код из ссылки
+        report = vk_utility.auth(code)  # функция vk_utility.auth на входе получает код. при помощи кода получает доступ к списку друзей пользователя
+                                        # и возвращает список из 5 друзей пользователя
+        if 'testcookie' not in request.COOKIES: # проверяем бразуер пользователя на наличие куки из данного приложения
+            response = HttpResponse(report)
+            response.set_cookie('testcookie', 'VK_auth', max_age=60*60*24) # если кнопкуи не обнаружено - записываем куки в браузер
+        else:
+            response = HttpResponse(report)
+        return response
+    except Exception as e:
+        return redirect("https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code") 

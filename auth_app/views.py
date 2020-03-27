@@ -11,8 +11,8 @@ def index(request):
      
 def friends(request):
     request_link = "https://oauth.vk.com/authorize?client_id=7374940&redirect_uri=https://myvkauth.herokuapp.com/auth_app/friends/&display=page&scope=friends,offline&response_type=code"
-    r = requests.get(url=request_link)
-    current_url = r.build_absolute_uri() # записываем в переменную текущую ссылку
+    current_url = requests.get(url=request_link)
+    #current_url = r.build_absolute_uri() # записываем в переменную текущую ссылку
     code = current_url[-18:] # получаем код из ссылки
     report = vk_utility.auth(code)  # функция vk_utility.auth на входе получает код. при помощи кода получает доступ к списку друзей пользователя
                                     # и возвращает список из 5 друзей пользователя

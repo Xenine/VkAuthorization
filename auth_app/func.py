@@ -27,9 +27,11 @@ def auth(code):
     data = r.json()
     array_of_friends_ID = data['response']['items'] # получаем массив словарей имен, фамилий и id друзей 
     number_of_friends = len(array_of_friends_ID)
+    if number_of_friends >= 5:
+        number_of_friends = 5
     temp_greeting = '<p style="font-size:28px;">{0} друзей из Вашего списка друзей, выбранных случайным образом:</p><br>'
     greeting_string += temp_greeting.format(number_of_friends)
-    for i in range(len(array_of_friends_ID)): 
+    for i in range(number_of_friends): 
         temp_first_name = array_of_friends_ID[i]['first_name']
         temp_last_name = array_of_friends_ID[i]['last_name']
         temp_id = array_of_friends_ID[i]['id']

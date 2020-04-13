@@ -21,7 +21,7 @@ def auth(code):
     last_name = data['response'][0]['last_name'] # получаем фамилию авторизованного пользователя
     greeting_string = '<p style="font-size:28px;">Здравствуйте, {0} {1}, вы авторизованы.</p><br>'
     greeting_string = greeting_string.format(first_name, last_name)
-    request_link = "https://api.vk.com/method/friends.get?user_ids={0}&order=random&count=5&fields=domain&access_token={1}&v=5.103 "
+    request_link = "https://api.vk.com/method/friends.get?user_ids={0}&order=random&fields=domain&access_token={1}&v=5.103 "
     request_link = request_link.format(user_id, access_token)  # запрашиваем 5 друзей, выбранных в случайном порядке
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()

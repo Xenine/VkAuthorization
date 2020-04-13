@@ -26,8 +26,10 @@ def auth(code):
     r = requests.get(url=request_link) # через API запрос получаем словарь в формате JSON
     data = r.json()
     array_of_friends_ID = data['response']['items'] # получаем массив словарей имен, фамилий и id друзей 
-    greeting_string += '<p style="font-size:28px;">5 друзей из Вашего списка друзей, выбранных случайным образом:</p><br>'
-    for i in range(5): 
+    number_of_friends = len(array_of_friends_ID)
+    temp_greeting = '<p style="font-size:28px;">{0} друзей из Вашего списка друзей, выбранных случайным образом:</p><br>'
+    greeting_string += temp_greeting.format(number_of_friends)
+    for i in range(len(array_of_friends_ID)): 
         temp_first_name = array_of_friends_ID[i]['first_name']
         temp_last_name = array_of_friends_ID[i]['last_name']
         temp_id = array_of_friends_ID[i]['id']
